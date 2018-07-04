@@ -28,5 +28,4 @@ function contentManagement(){
 			<i class="material-icons">add_circle_outline</i></button></div>
 
 </div>
-
- 							
+						
