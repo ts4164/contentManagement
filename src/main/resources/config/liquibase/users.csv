@@ -1,0 +1,4 @@
+user_id;name;user_name;password;email;contactno;dateofbirth;address;status;lock;role_id
+1;sadmin;sadmin;$2a$10$vinGUe4G/mhnTYaGBIb6FO/JZGsZK14uK9qmx9qt71NT.v6j1x0h6;sadmin@gmail.com;1234567890;2018-06-01;pune;Active;FALSE;1
+2;admin;admin;$2a$10$rYyAWK3bUYIoFlyJVqA3yus34GylB9SpzZXE0Pf6AZJEd2PKPNgxy;admin@gmail.com;1234567890;2018-06-01;pune;Active;FALSE;2
+3;trupti;trupti;$2a$10$1NXQvPOk3NZ1gsPLGeJM0OsJJVUQCia/KQa6YhzWdPwGD/Q0LvXtm;trupti@gmail.com;1234567890;2018-06-01;pune;Active;FALSE;3
