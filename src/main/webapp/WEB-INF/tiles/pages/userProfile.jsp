@@ -50,23 +50,67 @@ function contentManagement(){
 		$('#ContentDiv').html(tableItem);
 		$('#contentManagement').DataTable(); */	
 		for(i=0;i<response.totalRecords;i++){
+		
+			
+		if(response.contentListVo[i].type == "image")
+			{
 		$("#ContentDiv").append("<div id=innerDiv"+response.contentListVo[i].contentId+">"
-		+"<div>"+response.contentListVo[i].contentDescription+"   "+response.contentListVo[i].uploadTime+"</div>"		
-		+"<img src="+response.contentListVo[i].contentPath+" style=width:20%; width:20% ></div>");
+				+"<div>"+response.contentListVo[i].contentDescription+"   "+response.contentListVo[i].uploadTime+"</div>"		
+				+"<img src="+response.contentListVo[i].contentPath+" style=width:20%; width:20% ></div>");
+		
+			}
+		
+		if(response.contentListVo[i].type == "video")
+		{
+		$("#ContentDiv").append("<div id=innerDiv"+response.contentListVo[i].contentId+">"
+			+"<div>"+response.contentListVo[i].contentDescription+"   "+response.contentListVo[i].uploadTime+"</div>"		
+			+"<video style=width:20%; width:20% controls><source src="+response.contentListVo[i].contentPath+" type=video/mp4></video></div>");
+		}
+	
+		if(response.contentListVo[i].type == "audio")
+		{
+		$("#ContentDiv").append("<div id=innerDiv"+response.contentListVo[i].contentId+">"
+			+"<div>"+response.contentListVo[i].contentDescription+"   "+response.contentListVo[i].uploadTime+"</div>"		
+			+"<audio style=width:20%; width:20% controls><source src="+response.contentListVo[i].contentPath+" type=audio/ogg></audio></div>");
 		}
 		
-		}
+	}
+}
 	});
-	
 }
 
+function displayProgressBars(id)
+{
+	if(id== "fileUpload"){
+	if ($("#fileUpload").val() == null || $("#fileUpload").val() == "") {
+		$('#fileUploadError').html('<p  style="font-size:10px; color:red">Please Add Policie');
+		return false;
+	}
+	else{
+		$('#fileUploadError').html("");
+	}
+	var fileSelect = document.getElementById('fileUpload');
+	var files = fileSelect.files;
+	//if(validatefileSize(fileSelect,'fileUpload')){
+		for (var i = 0; i < files.length; i++) {
+		var file = files[i];
+		   $("#toAppendProgressBars").append('<div class="progress" style="width:50%;height: 17px;background-color:red; " id="multipleProgressBars'+i+'"></div><div style="float:left;margin-left:55%;margin-top:-40px"></div>');
+		   $("#multipleProgressBars"+i).append('<div class="progress-bar progress-bar-striped active progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:0%" id="documentProgressbar'+i+'">'+file.name+'&nbsp;&nbsp;&nbsp;uploaded...</div>');
+		   $('#documentProgressbar'+i).css('width',  '100%');
+		}
+		document.getElementById('addContentButton').disabled = false;
+	//}else{
+		//document.getElementById('addContentButton').disabled = true;
+	//}
+	}
+}
+	
 function saveContent(btnId){
 	var fileSelect = document.getElementById('fileUpload');
 	var files = fileSelect.files;
 	var form_data = new FormData($('#newUpload')[0]);
 	 for (var i = 0; i < files.length; i++) {
 		var file = files[i];
-		console.log("@@@@@@@@@@@@@@@@@: "+file.name);
 	 }
 	 
 	 for (var i = 0; i < files.length; i++) {
@@ -140,11 +184,15 @@ function saveContent(btnId){
 						</tr>
 						<tr>
 							<td><label class="formLabel">Upload:</label></td>
-							<td><input type="file" id="fileUpload" name="fileUpload" accept=".pdf,.jpg,.jpeg,.png" multiple="multiple"></td>
+							<td><input type="file" id="fileUpload" name="fileUpload" accept=".pdf,.jpg,.jpeg,.png,.mp4,.mp3,.ogg,mpeg" onchange="displayProgressBars(this.id)" multiple="multiple"></td>
 							<td></td>
 							<td></td>
 						</tr>
-			
+						<tr>
+						<td colspan="4">
+			<div id="toAppendProgressBars" style="margin-top:20px;"></div>
+			</td>
+			</tr>
 					</table>
 					</form>	
 				</div>
