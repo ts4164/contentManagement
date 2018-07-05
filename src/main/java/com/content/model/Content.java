@@ -25,7 +25,8 @@ public class Content implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	 Long id;
-	 String eventPath;
+	 String contentPath;
+	 String contentDescription;
 	 Date uploadTime;
 	 String type;
 	User user;
@@ -42,15 +43,24 @@ public class Content implements Serializable{
 		this.id = id;
 	}
 
-	@Column(name="event_path")
-	public String getEventPath() {
-		return eventPath;
+	@Column(name="content_path")
+	public String getContentPath() {
+		return contentPath;
 	}
 
-	public void setEventPath(String eventPath) {
-		this.eventPath = eventPath;
+	public void setContentPath(String contentPath) {
+		this.contentPath = contentPath;
 	}
-	
+
+	@Column(name="content_description")
+	public String getContentDescription() {
+		return contentDescription;
+	}
+
+	public void setContentDescription(String contentDescription) {
+		this.contentDescription = contentDescription;
+	}
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="upload_time")
 	public Date getUploadTime() {

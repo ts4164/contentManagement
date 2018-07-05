@@ -30,7 +30,8 @@ public class ContentService {
 		if(contentVo.getContentId() != null){
 			content.setId(contentVo.getContentId());
 		}
-		content.setEventPath(contentVo.getEventPath());
+		content.setContentPath(contentVo.getContentPath());
+		content.setContentDescription(contentVo.getContentDescription());
 		content.setType(contentVo.getType());
 		User user = (User) contentDao.loadObject(User.class, contentVo.getUserId());
 		content.setUser(user);
@@ -49,7 +50,8 @@ public class ContentService {
 		// TODO Auto-generated method stub
 		ContentVO vo = new ContentVO();
 		vo.setContentId(content.getId());
-		vo.setEventPath(content.getEventPath());
+		vo.setContentPath(content.getContentPath());
+	    vo.setContentDescription(content.getContentDescription());
 		vo.setType(content.getType());
 		vo.setUploadTime(dateFormat.format(content.getUploadTime()));
 		vo.setUserId(content.getUser().getId());

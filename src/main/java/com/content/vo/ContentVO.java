@@ -3,7 +3,8 @@ package com.content.vo;
 public class ContentVO {
 
 	Long contentId;
-	String eventPath;
+	String contentPath;
+	String contentDescription;
 	String uploadTime;
 	String type;
 	Long userId;
@@ -14,11 +15,17 @@ public class ContentVO {
 	public void setContentId(Long contentId) {
 		this.contentId = contentId;
 	}
-	public String getEventPath() {
-		return eventPath;
+	public String getContentPath() {
+		return contentPath;
 	}
-	public void setEventPath(String eventPath) {
-		this.eventPath = eventPath;
+	public void setContentPath(String contentPath) {
+		this.contentPath = contentPath;
+	}
+	public String getContentDescription() {
+		return contentDescription;
+	}
+	public void setContentDescription(String contentDescription) {
+		this.contentDescription = contentDescription;
 	}
 	public String getUploadTime() {
 		return uploadTime;

@@ -6,8 +6,8 @@
 	<artifactId>content</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	
-	<name>media</name>
-	<description>media</description>
+	<name>content</name>
+	<description>content</description>
 		
 	<parent>
 		<groupId>org.springframework.boot</groupId>

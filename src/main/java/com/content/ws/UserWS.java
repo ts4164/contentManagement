@@ -31,13 +31,10 @@ public class UserWS {
 		userVo.setAddress(request.getParameter("address"));
 		userVo.setContactno(request.getParameter("contactNo"));
 		userVo.setDateofbirth(request.getParameter("dateOfBirth"));
-     	userVo.setEmail(request.getParameter("email"));
-		
+     	userVo.setEmail(request.getParameter("email"));		
 		userVo.setName(request.getParameter("name"));
-		userVo.setPassword(passwordEncoder.encode(request.getParameter("password")));
-		
-		userVo.setRoleId(Long.parseLong(request.getParameter("selectRole")));
-		
+		userVo.setPassword(passwordEncoder.encode(request.getParameter("password")));		
+		userVo.setRoleId(Long.parseLong(request.getParameter("selectRole")));		
 		userVo.setUserName(request.getParameter("userName"));
 		userVo.setLock(request.getParameter("lock"));
 		userVo.setStatus(request.getParameter("status"));
