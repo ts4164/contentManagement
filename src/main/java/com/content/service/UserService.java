@@ -31,8 +31,12 @@ public class UserService {
 			user.setId(userVo.getUserId());
 		}
 		user.setName(userVo.getName());
+		if(userVo.getUserName() != null || userVo.getUserName()!= ""){
 		user.setUserName(userVo.getUserName());
+		}
+		if(userVo.getPassword() != null || userVo.getPassword() != ""){
 		user.setPassword(userVo.getPassword());
+		}
 		user.setEmail(userVo.getEmail());
 		user.setContactno(userVo.getContactno());
 		user.setAddress(userVo.getAddress());

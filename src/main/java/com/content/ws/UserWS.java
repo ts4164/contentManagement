@@ -56,10 +56,10 @@ public class UserWS {
 		userVo.setEmail(request.getParameter("editEmail"));
 		userVo.setLock(request.getParameter("editLock"));
 		userVo.setName(request.getParameter("editName"));
-		userVo.setPassword(passwordEncoder.encode(request.getParameter("editPassword")));
-		userVo.setRoleId(Long.parseLong(request.getParameter("editRoleid")));
+		//userVo.setPassword(passwordEncoder.encode(request.getParameter("editPassword")));
+		userVo.setRoleId(Long.parseLong(request.getParameter("editSelectRole")));
 		userVo.setStatus(request.getParameter("editStatus"));
-		userVo.setUserName(request.getParameter("editUserName"));
+		//userVo.setUserName(request.getParameter("editUserName"));
 		return userService.saveUser(userVo);
 	}
 	
