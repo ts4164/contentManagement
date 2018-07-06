@@ -104,8 +104,46 @@ function displayProgressBars(id)
 	//}
 	}
 }
+
+function validateSaveContent(){
 	
+	var contentDescription = document.forms["saveContentForm"]["contentDescription"].value;
+	if(contentDescription == null || contentDescription == "")
+		{
+		$('#contentDescription').css('border-color','red');
+		$('#description_err').text("Please add description");
+		return false;
+		}else{
+		$('#contentDescription').css('border-color','');	
+		}
+	
+	var contentType = document.forms["saveContentForm"]["contentType"].value;
+	if(contentType == null || contentType == "" || contentType =="-- Select --")
+		{
+		$('#contentType').css('border-color','red');
+		$('#type_err').text("Please select type");
+		return false;
+		}else{
+		$('#contentType').css('border-color','');	
+		}
+	
+	var fileSelect = document.getElementById('fileUpload');
+	var files = fileSelect.files;
+	//console.log(" files length "+files.length);
+	if(files.length == 0)
+		{
+		$('#fileUpload').css('border-color','red');
+		$('#file_err').text("Please upload file");
+		return false;
+		}else{
+		$('#fileUpload').css('border-color','');	
+		}	
+return true;	
+}
+
 function saveContent(btnId){
+	if(validateSaveContent()){
+		
 	var fileSelect = document.getElementById('fileUpload');
 	var files = fileSelect.files;
 	var form_data = new FormData($('#newUpload')[0]);
@@ -138,10 +176,9 @@ function saveContent(btnId){
 	        	location.reload();
 	    	},
 	    	error: function (response) {
-	    	},
-	                  	
-	});
-		
+	    	},                	
+		});
+	}		
 }
 
 </script>
@@ -185,6 +222,12 @@ function saveContent(btnId){
 						<tr>
 							<td><label class="formLabel">Upload:</label></td>
 							<td><input type="file" id="fileUpload" name="fileUpload" accept=".pdf,.jpg,.jpeg,.png,.mp4,.mp3,.ogg,mpeg" onchange="displayProgressBars(this.id)" multiple="multiple"></td>
+							<td></td>
+							<td></td>
+						</tr>		
+						<tr>
+							<td></td>
+							<td><span id="file_err" style="color:red;font-size:10px"></span></td>
 							<td></td>
 							<td></td>
 						</tr>
