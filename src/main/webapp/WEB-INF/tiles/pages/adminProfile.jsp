@@ -10,6 +10,15 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	userManagement();
+	
+	$('.date-picker').datepicker({
+	 	changeMonth:true,
+		 	changeYear:true,
+		 	dateFormat:"yy-mm-dd",
+		 	//minDate:"1960-01-01",
+		 	maxDate:new Date()
+	});
+	
 });
 
 function userManagement(){
@@ -51,9 +60,151 @@ function userManagement(){
 	});
 }
 
-function saveUser(){
+function clearForm(){
+	$('#name').css('border-color','');
+	$('#email').css('border-color','');
+	$('#contactNo').css('border-color','');
+	$('#address').css('border-color','');
+	$('#dateOfBirth').css('border-color','');
+	$('#selectRole').css('border-color','');
+	$('#userName').css('border-color','');
+	$('#password').css('border-color','');
+	$('#reEnterPass').css('border-color','');
+	$('#name').val("");
+	$('#email').val("");
+	$('#contactNo').val("");
+	$('#address').val("");
+	$('#dateOfBirth').val("");
+	$('#selectRole').val("");
+	$('#userName').val("");
+	$('#password').val("");
+	$('#reEnterPass').val("");
+	$('#name_err').text("");
+	$('#email_err').text("");
+	$('#contactNo_err').text("");
+	$('#address_err').text("");
+	$('#dateOfBirth_err').text("");
+	$('#selectRole_err').text("");
+	$('#userName_err').text("");
+	$('#password_err').text("");
+	$('#reEnterPass_err').text("");
+}
+
+function validateSaveUser(){
 	
+	var name = document.forms["saveUserForm"]["name"].value;
+	if(name == null || name == "")
+		{
+		$('#name').css('border-color','red');
+		$('#name_err').text("Please enter name");
+		return false;
+		}else{
+		$('#name').css('border-color','');	
+		}
+	
+	var email = document.forms["saveUserForm"]["email"].value;
+	if(email == null || email == "")
+	{
+	$('#email').css('border-color','red');
+	$('#email_err').text("Please enter email");
+	return false;
+	}else{
+	$('#email').css('border-color','');	
+	}
+	
+	var em = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	if (email.match(em)) {
+		$("#email").text("");
+
+	} else {
+		$("#email").css('border-color','red');
+		$('#email_err').text("Please Enter Valid Email Id");
+		return false;
+	}
+
+	var contactNo = document.forms["saveUserForm"]["contactNo"].value;
+	if(contactNo == null || contactNo == "")
+	{
+	$('#contactNo').css('border-color','red');
+	$('#contactNo_err').text("Please enter contact number");
+	return false;
+	}else{
+	$('#contactNo').css('border-color','');	
+	}
+	
+	var address = document.forms["saveUserForm"]["address"].value;
+	if(address == null || address == "")
+	{
+	$('#address').css('border-color','red');
+	$('#address_err').text("Please enter address");
+	return false;
+	}else{
+	$('#address').css('border-color','');	
+	}
+	
+	var dateOfBirth = document.forms["saveUserForm"]["dateOfBirth"].value;
+	if(dateOfBirth == null || dateOfBirth == "")
+	{
+	$('#dateOfBirth').css('border-color','red');
+	$('#dateOfBirth_err').text("Please enter date of birth");
+	return false;
+	}else{
+	$('#dateOfBirth').css('border-color','');	
+	}
+	
+	var selectRole = document.forms["saveUserForm"]["selectRole"].value;
+	if(selectRole == null || selectRole == "" || selectRole == "-- Select --")
+	{
+	$('#selectRole').css('border-color','red');
+	$('#selectRole_err').text("Please select role");
+	return false;
+	}else{
+	$('#selectRole').css('border-color','');	
+	}
+	
+	var userName = document.forms["saveUserForm"]["userName"].value;
+	if(userName == null || userName == "")
+	{
+	$('#userName').css('border-color','red');
+	$('#userName_err').text("Please select role");
+	return false;
+	}else{
+	$('#userName').css('border-color','');	
+	}
+	
+	var password = document.forms["saveUserForm"]["password"].value;
+	if(password == null || password == "")
+	{
+	$('#password').css('border-color','red');
+	$('#password_err').text("Please select role");
+	return false;
+	}else{
+	$('#password').css('border-color','');	
+	}
+	
+	var reEnterPass = document.forms["saveUserForm"]["reEnterPass"].value;
+	if(reEnterPass == null || reEnterPass == "")
+	{
+	$('#reEnterPass').css('border-color','red');
+	$('#reEnterPass_err').text("Please confirm password");
+	return false;
+	}
+	else if(reEnterPass.match(password))
+	{
+	$('#reEnterPass').css('border-color','red');
+	$('#reEnterPass_err').text("Password doesn't match");
+	return false;
+	}
+	else{
+	$('#reEnterPass').css('border-color','');	
+	}
+	
+	return true;
+}
+
+function saveUser(){
 	var saveUserForm = $("#saveUserForm");
+	if(validateSaveUser()){
 	$.ajax({
 		url:'/saveUser',
 		type:'POST',
@@ -62,11 +213,25 @@ function saveUser(){
 			$('#AddUserModal').modal('hide');
 			userManagement();
 		}
-	});	
+	});
+	}
 }
 
 function editUserDetails(userId)
 {
+	$('#editName').css('border-color','');
+	$('#editEmail').css('border-color','');
+	$('#editContactNo').css('border-color','');
+	$('#editAddress').css('border-color','');
+	$('#editDateOfBirth').css('border-color','');
+	$('#editSelectRole').css('border-color','');
+	$('#editName_err').text("");
+	$('#editEmail_err').text("");
+	$('#editContactNo_err').text("");
+	$('#editAddress_err').text("");
+	$('#editDateOfBirth_err').text("");
+	$('#editSelectRole_err').text("");
+	
 	console.log("Edit user : "+userId);
 	$.ajax({
 		url:'/getUserDetails',
@@ -96,9 +261,84 @@ function editUserDetails(userId)
 	});	
 }
 
-function updateUser(){
+function validateUpdateUser(){
 	
+	var editName = document.forms["editUserForm"]["editName"].value;
+	if(editName == null || editName == "")
+		{
+		$('#editName').css('border-color','red');
+		$('#editName_err').text("Please enter name");
+		return false;
+		}else{
+		$('#editName').css('border-color','');	
+		}
+	
+	var editEmail = document.forms["editUserForm"]["editEmail"].value;
+	if(editEmail == null || editEmail == "")
+	{
+	$('#editEmail').css('border-color','red');
+	$('#editEmail_err').text("Please enter email");
+	return false;
+	}else{
+	$('#editEmail').css('border-color','');	
+	}
+	
+	var em = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	if (editEmail.match(em)) {
+		$("#editEmail").text("");
+
+	} else {
+		$("#editEmail").css('border-color','red');
+		$('#editEmail_err').text("Please Enter Valid Email Id");
+		return false;
+	}
+
+	var editContactNo = document.forms["editUserForm"]["editContactNo"].value;
+	if(editContactNo == null || editContactNo == "")
+	{
+	$('#editContactNo').css('border-color','red');
+	$('#editContactNo_err').text("Please enter contact number");
+	return false;
+	}else{
+	$('#editContactNo').css('border-color','');	
+	}
+	
+	var editAddress = document.forms["editUserForm"]["editAddress"].value;
+	if(editAddress == null || editAddress == "")
+	{
+	$('#editAddress').css('border-color','red');
+	$('#editAddress_err').text("Please enter address");
+	return false;
+	}else{
+	$('#editAddress').css('border-color','');	
+	}
+	
+	var editDateOfBirth = document.forms["editUserForm"]["editDateOfBirth"].value;
+	if(editDateOfBirth == null || editDateOfBirth == "")
+	{
+	$('#editDateOfBirth').css('border-color','red');
+	$('#editDateOfBirth_err').text("Please enter date of birth");
+	return false;
+	}else{
+	$('#editDateOfBirth').css('border-color','');	
+	}
+	
+	var editSelectRole = document.forms["editUserForm"]["editSelectRole"].value;
+	if(editSelectRole == null || editSelectRole == "" || editSelectRole == "-- Select --")
+	{
+	$('#editSelectRole').css('border-color','red');
+	$('#editSelectRole_err').text("Please select role");
+	return false;
+	}else{
+	$('#editSelectRole').css('border-color','');	
+	}
+	
+return true;	
+}
+
+function updateUser(){
 	var editUserForm = $("#editUserForm");
+	if(validateUpdateUser()){
 	$.ajax({
 		url:'/updateUser',
 		type:'POST',
@@ -108,12 +348,12 @@ function updateUser(){
 			userManagement();
 		}
 	});	
+  }
 }
-
 
 </script>
 
-<div class="hrader-content">User <button id="addUser" data-toggle="modal" data-target="#AddUserModal" title="Add User">
+<div class="hrader-content">User <button id="addUser" data-toggle="modal" data-target="#AddUserModal" title="Add User" onclick="clearForm()">
 			<i class="material-icons">add_circle_outline</i></button></div>
 			<div id="UsersDiv" class="tableDiv" style="padding-top: 15px;"></div>
 			
@@ -144,7 +384,7 @@ function updateUser(){
 						</tr>
 						<tr>
 							<td style="width: 15%;"><label class="formLabel">Contact no. :</label></td>
-							<td><input id="contactNo" type="text" placeholder="Contact No" name="contactNo"></td>
+							<td><input id="contactNo" type="number" placeholder="Contact No" name="contactNo"></td>
 							<td style="width: 15%;"><label class="formLabel">Address :</label></td>
 							<td><input id="address" type="text" placeholder="Address" name="address"></td>
 						</tr>
@@ -156,7 +396,9 @@ function updateUser(){
 						</tr>
 						<tr>
 							<td style="width: 15%;"><label class="formLabel">Date Of Birth :</label></td>
-							<td><input id="dateOfBirth" type="text" placeholder="Date Of Birth" name="dateOfBirth"></td>
+							<td><!-- <input id="dateOfBirth" type="text" placeholder="Date Of Birth" name="dateOfBirth"> -->
+							 <input name="dateOfBirth" id="dateOfBirth" class="date-picker" placeholder="--Select--"/>
+							</td>
 							<td><label class="formLabel">Role :</label></td>
 							<td><select id="selectRole" class="selectDropdown" name="selectRole">
 				         	 		<option>-- Select --</option>
@@ -186,10 +428,11 @@ function updateUser(){
 						<tr>			
 							<td style="width: 15%;"><label class="formLabel">Password :</label></td>
 							<td><input id="password" type="password" placeholder="Password" name="password">	
-							<span id="passwordErr" style="display: block;font-size: 10px;color: red;">
+							<span id="password_err" style="display: block;font-size: 10px;color: red;">
 							</span><span id="messages"></span></td>		
 							<td><label class="formLabel">Re-enter Password :</label></td>
-							<td><input id="reEnterPass" type="password" placeholder="Re-enter Password"name="reEnterPass"></td>
+							<td><input id="reEnterPass" type="password" placeholder="Re-enter Password"name="reEnterPass">
+							<span id="reEnterPass_err" style="display: block;font-size: 10px;color: red;"></span></td>
 								
 						</tr>
 						<tr>
@@ -225,7 +468,7 @@ function updateUser(){
 	        </div>
 	        <div class="modal-body" style="padding: 0;">
 				<div style="">
-				<form role="form" method="POST" id="editUserForm" name="editUserForm" action="/updateUser" onsubmit="return validateEditUser()">
+				<form role="form" method="POST" id="editUserForm" name="editUserForm" action="/updateUser" onsubmit="return validateUpdateUser()">
 					<input id="editUserId" type="hidden" name="editUserId">
 					<table class="table2">
 						<tr>
@@ -242,7 +485,7 @@ function updateUser(){
 						</tr>
 						<tr>
 							<td style="width: 15%;"><label class="formLabel">Contact no. :</label></td>
-							<td><input id="editContactNo" type="text" placeholder="Contact No" name="editContactNo"></td>
+							<td><input id="editContactNo" type="number" placeholder="Contact No" name="editContactNo"></td>
 							<td style="width: 15%;"><label class="formLabel">Address :</label></td>
 							<td><input id="editAddress" type="text" placeholder="Address" name="editAddress"></td>
 						</tr>
@@ -254,7 +497,9 @@ function updateUser(){
 						</tr>
 						<tr>
 							<td style="width: 15%;"><label class="formLabel">Date Of Birth :</label></td>
-							<td><input id="editDateOfBirth" type="text" placeholder="Date Of Birth" name="editDateOfBirth"></td>
+							<td><!-- <input id="editDateOfBirth" type="text" placeholder="Date Of Birth" name="editDateOfBirth"> -->
+							<input name="editDateOfBirth" id="editDateOfBirth" class="date-picker" placeholder="--Select--"/>
+							</td>
 							<td><label class="formLabel">Role :</label></td>
 							<td><select id="editSelectRole" class="selectDropdown" name="editSelectRole">
 				         	 		<option>-- Select --</option>

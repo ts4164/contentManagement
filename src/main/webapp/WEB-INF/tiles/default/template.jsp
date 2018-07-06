@@ -6,7 +6,9 @@
 <head>
 
  <script src="<c:url value='../../resources/jquery/jquery-2.1.3.min.js'/>"></script>
+  <script src="<c:url value='../../resources/jquery/jquery-ui.min.js'/>"></script>
 <link href="<c:url value='../../resources/css/home.css'/>" rel="stylesheet">
+<link href="<c:url value='../../resources/css/jquery-ui.css'/>" rel="stylesheet">
 
 <!-- ----------------------------------------------------------
 -------------------- Datatables Start--------------------------
