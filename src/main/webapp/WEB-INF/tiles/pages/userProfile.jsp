@@ -156,7 +156,7 @@ function saveContent(btnId){
 			   form_data.append('file', file);	   
 			}
 	//var user_id = $("#login_userId").val();
-	    var user_id = 2;
+	    var user_id = 3;
 		var contentType = $("#contentType").val();
 		var contentDescription = $("#contentDescription").val();
 	   form_data.append("contentDescription", contentDescription);
@@ -210,6 +210,7 @@ function saveContent(btnId){
 			   					 	<option value="audio">Audio</option>
 			   					 	<option value="video">Video</option>
 			   					 	<option value="image">Image</option>
+			   					 	<option value="album">Album</option>
 			  					</select>
 			  				</td>
 						</tr>

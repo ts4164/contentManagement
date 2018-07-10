@@ -6,11 +6,18 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
+
 import com.content.dao.ContentDao;
+import com.content.model.Album;
+import com.content.model.AlbumContent;
 import com.content.model.Content;
 import com.content.model.User;
+import com.content.vo.AlbumContentVO;
+import com.content.vo.AlbumVO;
 import com.content.vo.ContentListVO;
 import com.content.vo.ContentVO;
 
@@ -68,9 +75,36 @@ public class ContentService {
 			contentVoList.add(vo);
 			totalRecords++;
 		}
+		
+		List<Album> albumList = contentDao.getAlbumList();
+		List<AlbumContent> albumContentList = contentDao.getAlbumContent();
+		
+		
 		ContentListVO contentListVo = new ContentListVO();
 		contentListVo.setContentListVo(contentVoList);
 		contentListVo.setTotalRecords(totalRecords);
 		return contentListVo;
-	}	
+	}
+
+	public Album createAlbum(AlbumVO albumVO) {
+		// TODO Auto-generated method stub
+		Date date = new Date();
+		Album album = new Album();
+		album.setAlbumName(albumVO.getAlbumName());
+		album.setAlbumDescription(albumVO.getAlbumDescription());
+		album.setUploadTime(date);
+		User user = (User) contentDao.loadObject(User.class, albumVO.getUserId());
+		album.setUser(user);
+		return contentDao.createAlbum(album);
+	}
+
+	public AlbumContent createAlbumContent(AlbumContentVO albumContentVO) {
+		AlbumContent albumContent = new AlbumContent();
+		Album album = (Album) contentDao.loadObject(Album.class, albumContentVO.getAlbumId());
+		Content content = (Content) contentDao.loadObject(Content.class, albumContentVO.getContentId());
+		albumContent.setAlbumId(album);
+		albumContent.setContent(content);
+		return contentDao.createAlbumContent(albumContent);		
+	}
+	
 }

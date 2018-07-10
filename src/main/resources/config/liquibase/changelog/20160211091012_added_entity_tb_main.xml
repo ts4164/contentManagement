@@ -74,7 +74,51 @@
 		<addForeignKeyConstraint baseColumnNames="user_id"
 			baseTableName="content" constraintName="fk_tb_user_id"
 			referencedColumnNames="user_id" referencedTableName="users" />
+			
+			<!-- Added the entity albums. -->
+		<createTable tableName="albums">
+			<column name="album_id" type="bigint" autoIncrement="${autoIncrement}">
+		<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="album_name" type="varchar(255)" />
+			<column name="album_description" type="varchar(500)" />
+			<column name="upload_time" type="timestamp without time zone" />
+			<column name="user_id" type="bigint" />
+			<column name="createdate" type="timestamp without time zone" />
+			<column name="updatedate" type="timestamp without time zone" />
+			<column name="createdby" type="bigint" />
+			<column name="updatedby" type="bigint" />
+		</createTable>
+		<createSequence sequenceName="album_sequence"
+			startValue="1" incrementBy="1" />
 		
+		<addForeignKeyConstraint baseColumnNames="user_id"
+			baseTableName="albums" constraintName="fk_tb_user_id"
+			referencedColumnNames="user_id" referencedTableName="users" />
+			
+			<!-- Added the entity album_content. -->
+		<createTable tableName="album_content">
+			<column name="album_content_id" type="bigint" autoIncrement="${autoIncrement}">
+		<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="album_id" type="bigint" />
+			<column name="content_id" type="bigint" />
+			<column name="createdate" type="timestamp without time zone" />
+			<column name="updatedate" type="timestamp without time zone" />
+			<column name="createdby" type="bigint" />
+			<column name="updatedby" type="bigint" />
+		</createTable>
+		<createSequence sequenceName="album_content_sequence"
+			startValue="1" incrementBy="1" />
+		
+		<addForeignKeyConstraint baseColumnNames="album_id"
+			baseTableName="album_content" constraintName="fk_tb_album_id"
+			referencedColumnNames="album_id" referencedTableName="albums" />
+			
+		<addForeignKeyConstraint baseColumnNames="content_id"
+			baseTableName="album_content" constraintName="fk_tb_content_id"
+			referencedColumnNames="content_id" referencedTableName="content" />
+			
 		<loadData encoding="UTF-8" file="config/liquibase/role.csv"
 			separator=";" tableName="role" />
 			
