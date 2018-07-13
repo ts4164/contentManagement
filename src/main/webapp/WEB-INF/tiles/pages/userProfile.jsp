@@ -75,15 +75,19 @@ function contentManagement(){
 		}
 		
 	}
-		//if(response.albumDetailsListVO.length != 0)
-		//{
+		if(response.albumVOList.length != 0)
+		{
+			for(var i=0;i<response.albumVOList.length;i++){
 			//console.log("@@@@@@@@@@@@@@@ album centent "+response.albumDetailsListVO.length);
-			//$("#ContentDiv").append("<div id=albumDiv"+response.albumDetailsListVO.albumId+">Hello</div>");
-
-		//}
-		
-		
-		
+			$("#ContentDiv").append("<div id=albumDiv"+response.albumVOList[i].albumId+"><div>Album name : "+response.albumVOList[i].albumName+"</div>"
+					+"<div id=imgConDiv"+response.albumVOList[i].albumId+"></div></div>");
+			
+			for(var j=0;j<response.albumVOList[i].contentVO.length;j++){
+				$("#imgConDiv"+response.albumVOList[i].albumId).append("<div id=img"+response.albumVOList[i].contentVO[j].contentId+"><img src="+response.albumVOList[i].contentVO[j].contentPath+" style=width:10%; width:10% ></div></div>");
+			}
+			
+			}
+		}		
 }
 	});
 }
