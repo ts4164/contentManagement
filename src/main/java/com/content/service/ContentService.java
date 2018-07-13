@@ -81,21 +81,12 @@ public class ContentService {
 		for(Album a : albumList){
 			//System.out.println("@@@@@@@@@@@@@@@: "+a.getId()+" @@@@@ "+a.getUser().getId());
 			List<AlbumContent> albumContentList = contentDao.getAlbumContent(a.getId());
-			//albumDetailsVOList = new ArrayList<>(albumContentList.size());
-			//for(AlbumContent ac : albumContentList){
-				//AlbumDetailsVO adVo = this.getalbumDetails(a,ac);
-				//System.out.println("@@@@@@@@@@@@@@@: "+a.getId()+" @@@@@ "+ac.getContent().getContentPath());
-				//albumDetailsVOList.add(adVo);
-			//}
-			
 			AlbumVO aVO = this.getAVO(a,albumContentList);
 			AlbumVOLst.add(aVO);
 		}
-		
 		ContentListVO contentListVo = new ContentListVO();
 		contentListVo.setContentListVo(contentVoList);
 		contentListVo.setTotalRecords(totalRecords);
-		//contentListVo.setAlbumDetailsListVO(albumDetailsVOList);
 		contentListVo.setAlbumVOList(AlbumVOLst);
 		return contentListVo;
 	}
