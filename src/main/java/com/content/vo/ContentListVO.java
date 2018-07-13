@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ContentListVO {
 	List<ContentVO> contentListVo;
-	List<AlbumDetailsVO> AlbumDetailsListVO;
+	List<AlbumVO> AlbumVOList;
 	Long totalRecords;
 	
 	public List<ContentVO> getContentListVo() {
@@ -19,11 +19,11 @@ public class ContentListVO {
 	public void setTotalRecords(Long totalRecords) {
 		this.totalRecords = totalRecords;
 	}
-	public List<AlbumDetailsVO> getAlbumDetailsListVO() {
-		return AlbumDetailsListVO;
+	public List<AlbumVO> getAlbumVOList() {
+		return AlbumVOList;
 	}
-	public void setAlbumDetailsListVO(List<AlbumDetailsVO> albumDetailsListVO) {
-		AlbumDetailsListVO = albumDetailsListVO;
+	public void setAlbumVOList(List<AlbumVO> albumVOList) {
+		AlbumVOList = albumVOList;
 	}
-
+	
 }

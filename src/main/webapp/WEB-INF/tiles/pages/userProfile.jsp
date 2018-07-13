@@ -75,6 +75,15 @@ function contentManagement(){
 		}
 		
 	}
+		//if(response.albumDetailsListVO.length != 0)
+		//{
+			//console.log("@@@@@@@@@@@@@@@ album centent "+response.albumDetailsListVO.length);
+			//$("#ContentDiv").append("<div id=albumDiv"+response.albumDetailsListVO.albumId+">Hello</div>");
+
+		//}
+		
+		
+		
 }
 	});
 }

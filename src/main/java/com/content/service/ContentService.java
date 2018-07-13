@@ -17,7 +17,6 @@ import com.content.model.AlbumContent;
 import com.content.model.Content;
 import com.content.model.User;
 import com.content.vo.AlbumContentVO;
-import com.content.vo.AlbumDetailsVO;
 import com.content.vo.AlbumVO;
 import com.content.vo.ContentListVO;
 import com.content.vo.ContentVO;
@@ -78,38 +77,57 @@ public class ContentService {
 		}
 		
 		List<Album> albumList = contentDao.getAlbumList(userId);
-		List<AlbumDetailsVO> albumDetailsVOList = null;
+		List<AlbumVO> AlbumVOLst = new ArrayList<>(albumList.size());
 		for(Album a : albumList){
 			//System.out.println("@@@@@@@@@@@@@@@: "+a.getId()+" @@@@@ "+a.getUser().getId());
 			List<AlbumContent> albumContentList = contentDao.getAlbumContent(a.getId());
-			albumDetailsVOList = new ArrayList<>(albumContentList.size());
-			for(AlbumContent ac : albumContentList){
-				AlbumDetailsVO adVo = this.getalbumDetails(a,ac);
-				albumDetailsVOList.add(adVo);
-			}
+			//albumDetailsVOList = new ArrayList<>(albumContentList.size());
+			//for(AlbumContent ac : albumContentList){
+				//AlbumDetailsVO adVo = this.getalbumDetails(a,ac);
+				//System.out.println("@@@@@@@@@@@@@@@: "+a.getId()+" @@@@@ "+ac.getContent().getContentPath());
+				//albumDetailsVOList.add(adVo);
+			//}
+			
+			AlbumVO aVO = this.getAVO(a,albumContentList);
+			AlbumVOLst.add(aVO);
 		}
 		
 		ContentListVO contentListVo = new ContentListVO();
 		contentListVo.setContentListVo(contentVoList);
 		contentListVo.setTotalRecords(totalRecords);
-		contentListVo.setAlbumDetailsListVO(albumDetailsVOList);
+		//contentListVo.setAlbumDetailsListVO(albumDetailsVOList);
+		contentListVo.setAlbumVOList(AlbumVOLst);
 		return contentListVo;
 	}
 
-	private AlbumDetailsVO getalbumDetails(Album a, AlbumContent ac) {
+	private AlbumVO getAVO(Album a, List<AlbumContent> albumContentList) {
 		// TODO Auto-generated method stub
-		AlbumDetailsVO albumDetailsVO = new AlbumDetailsVO();
-		albumDetailsVO.setAlbumContentId(ac.getId());
-		albumDetailsVO.setAlbumDescription(a.getAlbumDescription());
-		albumDetailsVO.setAlbumId(a.getId());
-		albumDetailsVO.setAlbumName(a.getAlbumName());
-		albumDetailsVO.setContentDescription(ac.getContent().getContentDescription());
-		albumDetailsVO.setContentId(ac.getContent().getId());
-		albumDetailsVO.setContentPath(ac.getContent().getContentPath());
-		albumDetailsVO.setType(ac.getContent().getType());
-		albumDetailsVO.setUploadTime(dateFormat.format(a.getUploadTime()));
-		albumDetailsVO.setUserId(a.getUser().getId());	
-		return albumDetailsVO;
+		AlbumVO av = new AlbumVO();
+		List<ContentVO> conList = new ArrayList<>(albumContentList.size());
+		for(AlbumContent acl : albumContentList)
+		{
+			ContentVO cvo = this.getACVO(acl);
+			conList.add(cvo);
+		}
+		av.setAlbumDescription(a.getAlbumDescription());
+		av.setAlbumId(a.getId());
+		av.setAlbumName(a.getAlbumName());
+		av.setUploadTime(dateFormat.format(a.getUploadTime()));
+		av.setUserId(a.getUser().getId());
+		av.setContentVO(conList);	
+		return av;
+	}
+
+	private ContentVO getACVO(AlbumContent acl) {
+		// TODO Auto-generated method stub
+		ContentVO cv = new ContentVO();
+		cv.setContentId(acl.getContent().getId());
+		cv.setContentDescription(acl.getContent().getContentDescription());
+		cv.setContentPath(acl.getContent().getContentPath());
+		cv.setType(acl.getContent().getType());
+		cv.setUploadTime(dateFormat.format(acl.getContent().getUploadTime()));
+		cv.setUserId(acl.getContent().getUser().getId());
+		return cv;
 	}
 
 	public Album createAlbum(AlbumVO albumVO) {

@@ -1,5 +1,7 @@
 package com.content.vo;
 
+import java.util.List;
+
 public class AlbumVO {
 
 	Long albumId;
@@ -7,6 +9,7 @@ public class AlbumVO {
 	 String albumDescription;
 	 String uploadTime;
 	 Long userId;
+	 List<ContentVO> contentVO;
 	 
 	public Long getAlbumId() {
 		return albumId;
@@ -37,6 +40,12 @@ public class AlbumVO {
 	}
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+	public List<ContentVO> getContentVO() {
+		return contentVO;
+	}
+	public void setContentVO(List<ContentVO> contentVO) {
+		this.contentVO = contentVO;
 	}
 	 
 }
