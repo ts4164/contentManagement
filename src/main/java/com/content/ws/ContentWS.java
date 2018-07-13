@@ -149,7 +149,8 @@ public class ContentWS {
 	}
 	
 	@RequestMapping(value = "/getContentList",method = RequestMethod.GET)
-	public ContentListVO getContentList(){
-		return contentService.getContentList();
+	public ContentListVO getContentList(Long userId){
+		userId = (long) 3;
+		return contentService.getContentList(userId);
 	}
 }

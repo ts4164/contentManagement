@@ -37,9 +37,10 @@ public class ContentDao extends EntityManagerDao{
 	
 	}
 
-	public List<Content> getContentList() {
+	public List<Content> getContentList(Long userId) {
 		// TODO Auto-generated method stub
-		Query query = this.getEntityManager().createQuery("select content from Content content");
+		Query query = this.getEntityManager().createQuery("select content from Content content where content.user.id=:userId and content.type <> 'album'");
+		query.setParameter("userId", userId);
 		try{
 		return query.getResultList();
 		}
@@ -62,9 +63,10 @@ public class ContentDao extends EntityManagerDao{
 		return this.getEntityManager().merge(albumContent);
 	}
 
-	public List<Album> getAlbumList() {
+	public List<Album> getAlbumList(Long userId) {
 		// TODO Auto-generated method stub
-		Query query = this.getEntityManager().createQuery("select album from Album album");
+		Query query = this.getEntityManager().createQuery("select album from Album album where album.user.id=:userId");
+		query.setParameter("userId", userId);
 		try{
 		return query.getResultList();
 		}
@@ -77,9 +79,10 @@ public class ContentDao extends EntityManagerDao{
 		}
 	}
 
-	public List<AlbumContent> getAlbumContent() {
+	public List<AlbumContent> getAlbumContent(Long albumId) {
 		// TODO Auto-generated method stub
-		Query query = this.getEntityManager().createQuery("select albumContent from AlbumContent albumContent");
+		Query query = this.getEntityManager().createQuery("select albumContent from AlbumContent albumContent where albumContent.albumId.id =:albumId");
+		query.setParameter("albumId", albumId);
 		try{
 		return query.getResultList();
 		}
